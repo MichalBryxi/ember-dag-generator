@@ -1,0 +1,34 @@
+{{#paper-toolbar as |toolbar|}}
+  {{#toolbar.tools}}
+    {{#paper-button}}
+
+      {{paper-icon "grid-on"}}
+      {{/paper-button}}
+
+      <h2>Ember DAG generator</h2>
+
+      <span class="flex"></span>
+
+      {{#paper-button mini=true aria-label="Favorite"}}
+      {{paper-icon "favorite"}}
+
+    {{/paper-button}}
+  {{/toolbar.tools}}
+{{/paper-toolbar}}
+
+
+<div class="layout-row flex">
+  {{paper-input flex=30 label="Graph color" value=color onChange=(action (mut color)) icon="invert-colors"}}
+
+  {{paper-input flex=30 label="Seed" value=seed onChange=(action (mut seed)) icon="autorenew"}}
+
+  {{#paper-switch flex=30 value=isGridVisible onChange=(action (mut isGridVisible))}}
+    Display grid
+  {{/paper-switch}}
+</div>
+
+<div class="layout-row flex">
+  <div class="flex">
+    {{dag-graph color=color isGridVisible=isGridVisible seed=seed}}
+  </div>
+</div>

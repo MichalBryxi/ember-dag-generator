@@ -1,0 +1,37 @@
+{{#with (area 1280 800 margin="10 10 10 10") as |plotArea|}}
+  {{#plaid-plot
+    (linear-scale domain range nice=true)
+    (linear-scale domain range nice=true)
+    plotArea as |plot|}}
+
+    {{#if isGridVisible}}
+      {{dag-grid plot=plot gap=gap}}
+    {{/if}}
+
+    {{dag-start plot=plot coordinates=start color=color gap=gap}}
+
+    {{#each vertices as |coordinates|}}
+      {{dag-vertex plot=plot coordinates=coordinates color=color gap=gap}}
+    {{/each}}
+
+    {{#each edges as |edge|}}
+      {{dag-edge plot=plot coordinates=edge color=color gap=gap}}
+    {{/each}}
+
+    {{#each arrows as |arrow|}}
+      {{dag-arrow plot=plot coordinates=arrow color=color gap=gap}}
+    {{/each}}
+
+
+    {{!plot.area dag fill="#f59" curve=(curve "linearClosed")}}
+
+    {{!-- {{#with (pair-by "timestamp" "value" responseTimeMean) as |values|}}
+
+      {{plot.line values stroke="#673AB7" strokeWidth="2"  curve=(curve "basis")}}
+      {{plot.area values fill="#D1C4E9" curve=(curve "basis")}}
+      {{log values}}
+      {{plot.bottom-axis values ticks=10}}
+      {{plot.left-axis values tickFormat=(format-fn "0.1s" suffix="ms") ticks=2}}
+    {{/with}} --}}
+  {{/plaid-plot}}
+{{/with}}

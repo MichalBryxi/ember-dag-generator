@@ -1,0 +1,5 @@
+{{#each (repeat repeatX) as |emptyX x|}}
+  {{#each (repeat repeatY) as |emptyY y|}}
+    {{dag-rectangle plot=plot gap=gap coordinates=(array x y) color="#eee"}}
+  {{/each}}
+{{/each}}

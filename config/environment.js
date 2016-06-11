@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'puppet-dag-generator',
+    modulePrefix: 'ember-dag-generator',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
