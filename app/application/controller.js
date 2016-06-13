@@ -7,5 +7,6 @@ export default Ember.Controller.extend({
   isGridVisible: true,
   seed: 123456789,
   width: 8,
-  height: 8
+  height: 8,
+  gridScale: 25
 });

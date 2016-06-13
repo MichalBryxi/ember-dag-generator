@@ -5,8 +5,10 @@ import generator from 'ember-dag-generator/utils/generator';
 export default Ember.Component.extend({
   grey: '#ada',
   gap: 0.181818,
-  domain: [0, 10],
-  range: [0, 500],
+  domain: [0, 1],
+  range: Ember.computed('gridScale', function() {
+    return [0, this.get('gridScale')];
+  }),
   sizeX: 10,
   sizeY: 10,
   verticesProbability: 80,
