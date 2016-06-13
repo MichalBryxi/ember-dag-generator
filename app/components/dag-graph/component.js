@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import grid from 'ember-dag-generator/utils/grid';
 import { seedrandom } from 'ember-dag-generator/utils/seedrandom';
 import generator from 'ember-dag-generator/utils/generator';
 
@@ -17,7 +16,7 @@ export default Ember.Component.extend({
   arrowSize: 4,
   edgeSize: 3,
 
-  start: Ember.computed('seed', function() {
+  start: Ember.computed('seed', 'sizeX', 'sizeY', function() {
     let seed = this.get('seed');
 
     return [
@@ -26,7 +25,7 @@ export default Ember.Component.extend({
     ];
   }),
 
-  data: Ember.computed('start', function() {
+  data: Ember.computed('start', 'sizeX', 'sizeY', function() {
     return generator.vertices(
       this.get('start'),
       this.get('seed'),
@@ -50,13 +49,13 @@ export default Ember.Component.extend({
   edges: Ember.computed('data.[]', function() {
     return this.get('data').filterBy('isArrow', false).map(function(elm) {
       return [elm['from'], elm['to']];
-    })
+    });
   }),
 
   arrows: Ember.computed('data.[]', function() {
     return this.get('data').filterBy('isArrow', true).map(function(elm) {
       return [elm['from'], elm['to']];
-    })
+    });
   }),
 
   // Example of data

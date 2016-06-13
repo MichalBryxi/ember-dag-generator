@@ -18,17 +18,22 @@
 
 
 <div class="layout-row flex">
-  {{paper-input flex=30 label="Graph color" value=color onChange=(action (mut color)) icon="invert-colors"}}
+  {{paper-input flex=20 label="Graph color" value=color onChange=(action (mut color)) icon="invert-colors"}}
 
-  {{paper-input flex=30 label="Seed" value=seed onChange=(action (mut seed)) icon="autorenew"}}
+  {{paper-input type="number" flex=20 label="Seed" value=seed onChange=(action (mut seed)) icon="autorenew"}}
+
+  {{paper-input type="number" flex=6 label="width" value=width onChange=(action (mut width)) icon="border-vertical"}}
+  {{paper-input type="number" flex=6 label="height" value=height onChange=(action (mut height)) icon="border-horizontal"}}
 
   {{#paper-switch flex=30 value=isGridVisible onChange=(action (mut isGridVisible))}}
     Display grid
   {{/paper-switch}}
+
+  <span class="flex"></span>
 </div>
 
 <div class="layout-row flex">
   <div class="flex">
-    {{dag-graph color=color isGridVisible=isGridVisible seed=seed}}
+    {{dag-graph color=color isGridVisible=isGridVisible seed=seed sizeX=width sizeY=height}}
   </div>
 </div>
