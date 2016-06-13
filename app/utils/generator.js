@@ -11,7 +11,7 @@ export function vertices(point, seed, dice, edgeMaxSize, max, fade, lastDirectio
   ];
 
   directions.forEach(function(direction, index) {
-    if(!(lastDirection[0] == -direction[0] && lastDirection[1] == -direction[1])) { // Do not go backwards
+    if(!(lastDirection[0] === -direction[0] && lastDirection[1] === -direction[1])) { // Do not go backwards
       let isEdge = seedrandom(0, 100, seed + index + 1) < dice;
       let isArrow = seedrandom(1, 100, seed + index + 10) < arrowProbability;
       let distance;
@@ -28,14 +28,14 @@ export function vertices(point, seed, dice, edgeMaxSize, max, fade, lastDirectio
         if(isInside(newPoint, max)) {
           if(isEdge) {
             let generated = vertices(newPoint, seed + 1234, dice - fade, distance, max, fade, direction, arrowProbability - arrowFade, arrowFade, arrowMaxSize);
-            newPoints.pushObjects(generated);;
+            newPoints.pushObjects(generated);
           }
 
           newPoints.push({from: point, to: newPoint, isArrow: isArrow});
         }
       }
     }
-  })
+  });
 
   return newPoints;
 }
@@ -50,4 +50,4 @@ function isInside(point, max) {
 
 export default {
   vertices: vertices
-}
+};
