@@ -1,18 +1,18 @@
 {{#paper-toolbar as |toolbar|}}
   {{#toolbar.tools}}
+
     {{#paper-button}}
-
       {{paper-icon "grid-on"}}
-      {{/paper-button}}
-
-      <h2>Ember DAG generator</h2>
-
-      <span class="flex"></span>
-
-      {{#paper-button mini=true aria-label="Favorite"}}
-      {{paper-icon "favorite"}}
-
     {{/paper-button}}
+
+    <h2>Ember DAG generator</h2>
+
+    <span class="flex"></span>
+
+    {{#paper-button href="https://github.com/MichalBryxi/ember-dag-generator" mini=true aria-label="Favorite"}}
+      {{paper-icon "favorite"}}
+    {{/paper-button}}
+
   {{/toolbar.tools}}
 {{/paper-toolbar}}
 
