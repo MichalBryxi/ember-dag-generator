@@ -5,7 +5,7 @@
     plotArea as |plot|}}
 
     {{#if isGridVisible}}
-      {{dag-grid plot=plot gap=gap}}
+      {{dag-grid plot=plot gap=gap repeatX=sizeX repeatY=sizeY}}
     {{/if}}
 
     {{dag-start plot=plot coordinates=start color=color gap=gap}}
@@ -22,16 +22,5 @@
       {{dag-arrow plot=plot coordinates=arrow color=color gap=gap}}
     {{/each}}
 
-
-    {{!plot.area dag fill="#f59" curve=(curve "linearClosed")}}
-
-    {{!-- {{#with (pair-by "timestamp" "value" responseTimeMean) as |values|}}
-
-      {{plot.line values stroke="#673AB7" strokeWidth="2"  curve=(curve "basis")}}
-      {{plot.area values fill="#D1C4E9" curve=(curve "basis")}}
-      {{log values}}
-      {{plot.bottom-axis values ticks=10}}
-      {{plot.left-axis values tickFormat=(format-fn "0.1s" suffix="ms") ticks=2}}
-    {{/with}} --}}
   {{/plaid-plot}}
 {{/with}}
