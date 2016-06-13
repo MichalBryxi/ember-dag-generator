@@ -1,9 +1,11 @@
 {{#paper-toolbar as |toolbar|}}
   {{#toolbar.tools}}
 
-    {{#paper-button}}
-      {{paper-icon "grid-on"}}
-    {{/paper-button}}
+    {{#paper-sidenav-toggle name="left" class="hide-gt-sm" as |toggleAction|}}
+      {{#paper-button onClick=(action toggleAction)}}
+        {{paper-icon "menu"}}
+      {{/paper-button}}
+    {{/paper-sidenav-toggle}}
 
     <h2>Ember DAG generator</h2>
 
@@ -16,24 +18,46 @@
   {{/toolbar.tools}}
 {{/paper-toolbar}}
 
+{{#paper-sidenav-container class="inner-sidenav"}}
+  {{#paper-sidenav
+    class="md-whiteframe-z2"
+    name="left"
+    open=leftSideBarOpen
+    onToggle=(action (mut leftSideBarOpen))
+  }}
+    {{!-- {{#paper-toolbar as |toolbar|}}
+    {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
+    {{/paper-toolbar}} --}}
+    {{#paper-content padding=true}}
 
-<div class="layout-row flex">
-  {{paper-input flex=20 label="Graph color" value=color onChange=(action (mut color)) icon="invert-colors"}}
+      {{paper-input block=true label="Graph color" value=color onChange=(action (mut color)) icon="invert-colors"}}
 
-  {{paper-input type="number" flex=20 label="Seed" value=seed onChange=(action (mut seed)) icon="autorenew"}}
+      {{paper-input block=true type="number" label="Seed" value=seed onChange=(action (mut seed)) icon="autorenew"}}
 
-  {{paper-input type="number" flex=6 label="width" value=width onChange=(action (mut width)) icon="border-vertical"}}
-  {{paper-input type="number" flex=6 label="height" value=height onChange=(action (mut height)) icon="border-horizontal"}}
+      <div layout>
+        {{paper-input flex=50 type="number" label="width" value=width onChange=(action (mut width)) icon="border-vertical"}}
+        {{paper-input flex=50 type="number" label="height" value=height onChange=(action (mut height)) icon="border-horizontal"}}
+      </div>
 
-  {{#paper-switch flex=30 value=isGridVisible onChange=(action (mut isGridVisible))}}
-    Display grid
-  {{/paper-switch}}
+      {{!-- <div layout class="layout-row layout-align-end-center"> --}}
+        {{#paper-switch block=true value=isGridVisible onChange=(action (mut isGridVisible))}}
+          Display grid
+        {{/paper-switch}}
+      {{!-- </div> --}}
 
-  <span class="flex"></span>
-</div>
+      <div layout>
+        {{paper-slider flex=true discrete=true value=gridScale step='1' min='1' max='50'}}
+        <div flex=30 layout layout-align="center center">
+          <span>Scale</span>
+        </div>
+      </div>
 
-<div class="layout-row flex">
-  <div class="flex">
-    {{dag-graph color=color isGridVisible=isGridVisible seed=seed sizeX=width sizeY=height}}
-  </div>
-</div>
+   {{/paper-content}}
+  {{/paper-sidenav}}
+
+  {{#paper-card-content class="flex"}}
+    <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
+      {{dag-graph color=color isGridVisible=isGridVisible seed=seed sizeX=width sizeY=height gridScale=gridScale}}
+    </div>
+  {{/paper-card-content}}
+{{/paper-sidenav-container}}
