@@ -14,4 +14,4 @@ export function adjustArray(points, gap) {
 export default {
   adjust: adjust,
   adjustArray: adjustArray
-}
+};

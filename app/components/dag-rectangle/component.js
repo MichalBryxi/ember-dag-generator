@@ -14,7 +14,6 @@ export default Ember.Component.extend({
       [c[0]+1-p, c[1]+1-p],
       [c[0]+1-p, c[1]+p]
     ];
-    let gap = this.get('gap');
 
     return area;
   })
