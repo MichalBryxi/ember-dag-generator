@@ -30,7 +30,17 @@
     onToggle=(action (mut leftSideBarOpen))
   }}
     {{!-- {{#paper-toolbar as |toolbar|}}
-    {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
+      {{#paper-toolbar-tools}}
+
+        {{#paper-button onClick=(action "reset")}}
+          {{paper-icon "refresh"}}
+        {{/paper-button}}
+
+        <span>
+          Options
+        </span>
+
+      {{/paper-toolbar-tools}}
     {{/paper-toolbar}} --}}
     {{#paper-content padding=true}}
 
@@ -56,11 +66,15 @@
         </div>
       </div>
 
+      {{#paper-button raised=true onClick=(action "reset" 1)}}
+        {{paper-icon "refresh"}} Reset
+      {{/paper-button}}
+
    {{/paper-content}}
   {{/paper-sidenav}}
 
   {{#paper-card-content class="flex"}}
-    <div class="layout-fill layout-align-start-center layout-column" style="height: 500px">
+    <div class="layout-fill layout-align-start-center layout-column" style="height: 100vh">
       {{dag-graph color=color isGridVisible=isGridVisible seed=seed sizeX=width sizeY=height gridScale=gridScale}}
     </div>
   {{/paper-card-content}}
