@@ -1,5 +1,5 @@
 {{#paper-toolbar as |toolbar|}}
-  {{#toolbar.tools}}
+  {{#toolbar.tools class="hide-print"}}
 
     {{#paper-sidenav-toggle name="left" class="hide-gt-sm" as |toggleAction|}}
       {{#paper-button onClick=(action toggleAction)}}
@@ -11,8 +11,12 @@
 
     <span class="flex"></span>
 
+    {{#paper-button mini=true aria-label="Save SVG" onClick=(action "print")}}
+      {{paper-icon "printer"}}
+    {{/paper-button}}
+
     {{#paper-button href="https://github.com/MichalBryxi/ember-dag-generator" mini=true aria-label="Favorite"}}
-      {{paper-icon "favorite"}}
+      {{paper-icon "code"}}
     {{/paper-button}}
 
   {{/toolbar.tools}}
@@ -20,7 +24,7 @@
 
 {{#paper-sidenav-container class="inner-sidenav"}}
   {{#paper-sidenav
-    class="md-whiteframe-z2"
+    class="md-whiteframe-z2 hide-print"
     name="left"
     open=leftSideBarOpen
     onToggle=(action (mut leftSideBarOpen))
