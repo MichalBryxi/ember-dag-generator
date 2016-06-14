@@ -8,5 +8,11 @@ export default Ember.Controller.extend({
   seed: 123456789,
   width: 8,
   height: 8,
-  gridScale: 25
+  gridScale: 25,
+
+  actions: {
+    print() {
+      window.print();
+    }
+  }
 });
