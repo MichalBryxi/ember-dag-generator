@@ -5,6 +5,7 @@ import generator from 'ember-dag-generator/utils/generator';
 export default Ember.Component.extend({
   grey: '#ada',
   gap: 0.181818,
+  margin: 0.3,
   domain: [0, 1],
   range: Ember.computed('gridScale', function() {
     return [0, this.get('gridScale')];
@@ -28,7 +29,7 @@ export default Ember.Component.extend({
   }),
 
   data: Ember.computed('start', 'sizeX', 'sizeY', function() {
-    return generator.vertices(
+    let data = generator.vertices(
       this.get('start'),
       this.get('seed'),
       this.get('verticesProbability'),
@@ -40,49 +41,45 @@ export default Ember.Component.extend({
       this.get('arrowFade'),
       this.get('arrowSize')
     );
+    return data;
   }),
 
   vertices: Ember.computed('data.[]', function() {
-    return this.get('data').filterBy('isArrow', false).map(function(elm) {
-      return elm['to'];
+    return this.get('data').filterBy('type', 'vertex').map(function(elm) {
+      return elm.coordinates;
     });
   }),
 
   edges: Ember.computed('data.[]', function() {
-    return this.get('data').filterBy('isArrow', false).map(function(elm) {
-      return [elm['from'], elm['to']];
-    });
+    return this.get('data').filterBy('type', 'edge');
   }),
 
   arrows: Ember.computed('data.[]', function() {
-    return this.get('data').filterBy('isArrow', true).map(function(elm) {
-      return [elm['from'], elm['to']];
-    });
+    return this.get('data').filterBy('type', 'arrow');
   }),
 
+  actions: {
+    toggleGridCell(c) {
+      let tool = this.get('selectedTool');
+
+      if(tool.type === 'delete') {
+        this.get('data').forEach((elm, index) => {
+          let e = elm.coordinates;
+
+          if(e[0] == c[0] && e[1] == c[1]) {
+            this.get('data').removeAt(index);
+          }
+        });
+      } else {
+        let newObject = {coordinates: c, type: tool.type, direction: tool.direction};
+        this.get('data').pushObject(newObject);
+      }
+    }
+  }
+
   // Example of data
-  // start: [0,0],
   //
-  // vertices: [
-  //   [1,1],
-  //   [4,4],
-  //   [1,7],
-  //   [5,5],
-  //   [3,5]
-  // ],
-
-  // edges: [
-  //   [[0,0], [1,1]],
-  //   [[1,1], [4,4]],
-  //   [[4,4], [3,5]],
-  //   [[3,5], [1,7]],
-  //   [[4,4], [5,5]]
-  // ],
-
-  // arrows: [
-  //   [[4,4], [5,3]],
-  //   [[5,5], [7,7]],
-  //   [[1,7], [0,8]],
-  //   [[3,5], [1,3]]
+  // data: [
+  //   {coordinates: [1,1], type: 'arrow', direction: [-1, 1]}
   // ]
 });

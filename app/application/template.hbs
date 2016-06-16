@@ -29,20 +29,7 @@
     open=leftSideBarOpen
     onToggle=(action (mut leftSideBarOpen))
   }}
-    {{!-- {{#paper-toolbar as |toolbar|}}
-      {{#paper-toolbar-tools}}
-
-        {{#paper-button onClick=(action "reset")}}
-          {{paper-icon "refresh"}}
-        {{/paper-button}}
-
-        <span>
-          Options
-        </span>
-
-      {{/paper-toolbar-tools}}
-    {{/paper-toolbar}} --}}
-    {{#paper-content padding=true}}
+    {{#paper-content margin=true}}
 
       {{paper-input block=true label="Graph color" value=color onChange=(action (mut color)) icon="invert-colors"}}
 
@@ -53,11 +40,13 @@
         {{paper-input flex=50 type="number" label="height" value=height onChange=(action (mut height)) icon="border-horizontal"}}
       </div>
 
-      {{!-- <div layout class="layout-row layout-align-end-center"> --}}
-        {{#paper-switch block=true value=isGridVisible onChange=(action (mut isGridVisible))}}
-          Display grid
-        {{/paper-switch}}
-      {{!-- </div> --}}
+      <div layout class="layout-row">
+        <div class="flex-40">
+          {{#paper-switch block=true value=isEditMode onChange=(action (mut isEditMode))}}
+            Edit mode
+          {{/paper-switch}}
+        </div>
+      </div>
 
       <div layout>
         {{paper-slider flex=true discrete=true value=gridScale step='1' min='1' max='50'}}
@@ -75,7 +64,20 @@
 
   {{#paper-card-content class="flex"}}
     <div class="layout-fill layout-align-start-center layout-column" style="height: 100vh">
-      {{dag-graph color=color isGridVisible=isGridVisible seed=seed sizeX=width sizeY=height gridScale=gridScale}}
+
+      {{#if isEditMode}}
+       {{#paper-toolbar accent=true as |toolbar|}}
+          {{#toolbar.tools}}
+            <h2>
+              Edit tool:
+            </h2>
+            <span class="flex"></span>
+            {{tool-bar selectedTool=(mut selectedTool)}}
+          {{/toolbar.tools}}
+        {{/paper-toolbar}}
+      {{/if}}
+
+      {{dag-graph selectedTool=selectedTool color=color isEditMode=isEditMode seed=seed sizeX=width sizeY=height gridScale=gridScale}}
     </div>
   {{/paper-card-content}}
 {{/paper-sidenav-container}}

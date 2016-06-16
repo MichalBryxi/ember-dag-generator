@@ -3,46 +3,44 @@ import grid from 'ember-dag-generator/utils/grid';
 
 export default Ember.Component.extend({
   tagName: '',
-  padding: 0.2,
+  margin: 0.2,
 
-  line: Ember.computed('coordinates.[]', 'gap', 'padding', function() {
-    let c = grid.adjustArray(this.get('coordinates'), this.get('gap'));
-    let s = c[0];
-    let f = c[1];
-    let p = this.get('padding');
-    let w = Math.sqrt(2*p*p);
+  line: Ember.computed('point.[]', 'gap', 'margin', function() {
+    let c = grid.adjust(this.get('point.coordinates'), this.get('gap'));
+    let d = this.get('point.direction');
+    let m = this.get('margin');
+    let g = m / Math.sqrt(2);
     let area;
 
-
-    if(s[1] < f[1]) {
+    if(d[1] === 1) {
       area = [
-        [f[0], f[1]+p],
-        [f[0]+1-p-w, f[1]+1-w],
-        [f[0], f[1]+1-w],
-        [f[0], f[1]+1],
-        [f[0]+1, f[1]+1],
-        [f[0]+1, f[1]],
-        [f[0]+1-w, f[1]],
-        [f[0]+1-w, f[1]+1-p-w],
-        [f[0]+p, f[1]]
+        [c[0], c[1]+g],
+        [c[0]+1-g-m, c[1]+1-m],
+        [c[0], c[1]+1-m],
+        [c[0], c[1]+1],
+        [c[0]+1, c[1]+1],
+        [c[0]+1, c[1]],
+        [c[0]+1-m, c[1]],
+        [c[0]+1-m, c[1]+1-g-m],
+        [c[0]+g, c[1]]
       ];
     } else {
       area = [
-        [f[0]+p, f[1]+1],
-        [f[0]+1-w, f[1]+w+p],
-        [f[0]+1-w, f[1]+1],
-        [f[0]+1, f[1]+1],
-        [f[0]+1, f[1]],
-        [f[0], f[1]],
-        [f[0], f[1]+w],
-        [f[0]+1-w-p, f[1]+w],
-        [f[0], f[1]+1-p]
+        [c[0]+g, c[1]+1],
+        [c[0]+1-m, c[1]+m+g],
+        [c[0]+1-m, c[1]+1],
+        [c[0]+1, c[1]+1],
+        [c[0]+1, c[1]],
+        [c[0], c[1]],
+        [c[0], c[1]+m],
+        [c[0]+1-m-g, c[1]+m],
+        [c[0], c[1]+1-g]
       ];
     }
 
-    if(s[0] > f[0]) {
+    if(d[0] === -1) {
       area = area.map(function (elm) {
-        return [2*f[0] + 1 - elm[0], elm[1]];
+        return [2*c[0] + 1 - elm[0], elm[1]];
       });
     }
 
