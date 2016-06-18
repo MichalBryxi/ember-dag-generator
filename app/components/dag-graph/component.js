@@ -66,7 +66,7 @@ export default Ember.Component.extend({
         this.get('data').forEach((elm, index) => {
           let e = elm.coordinates;
 
-          if(e[0] == c[0] && e[1] == c[1]) {
+          if(e[0] === c[0] && e[1] === c[1]) {
             this.get('data').removeAt(index);
           }
         });
