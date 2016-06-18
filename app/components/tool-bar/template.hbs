@@ -1,0 +1,5 @@
+{{#each tools as |tool|}}
+  {{#radio-button tool=tool selectedTool=(mut selectedTool)}}
+    {{tool.name}}
+  {{/radio-button}}
+{{/each}}

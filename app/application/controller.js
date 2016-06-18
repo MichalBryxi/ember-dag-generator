@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  // queryParams: ['color', 'seed', 'isGridVisible'],
+  // queryParams: ['color', 'seed', 'isEditMode'],
+
+  selectedTool: { type: 'delete', direction: [] },
 
   initialReset: Ember.on('init', function() {
     this.send('reset');
@@ -14,7 +16,7 @@ export default Ember.Controller.extend({
     reset() {
       this.setProperties({
         color: '#ec933e',
-        isGridVisible: true,
+        isEditMode: true,
         seed: 123456789,
         width: 8,
         height: 8,

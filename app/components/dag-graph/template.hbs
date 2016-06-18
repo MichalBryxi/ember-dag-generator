@@ -4,23 +4,23 @@
     (linear-scale domain range nice=true)
     plotArea as |plot|}}
 
-    {{#if isGridVisible}}
-      {{dag-grid plot=plot gap=gap repeatX=sizeX repeatY=sizeY}}
-    {{/if}}
-
     {{dag-start plot=plot coordinates=start color=color gap=gap}}
 
-    {{#each vertices as |coordinates|}}
-      {{dag-vertex plot=plot coordinates=coordinates color=color gap=gap}}
+    {{#each edges as |edge|}}
+      {{dag-edge plot=plot margin=margin point=edge color=color gap=gap}}
     {{/each}}
 
-    {{#each edges as |edge|}}
-      {{dag-edge plot=plot coordinates=edge color=color gap=gap}}
+    {{#each vertices as |vertex|}}
+      {{dag-vertex plot=plot margin=margin coordinates=vertex color=color gap=gap}}
     {{/each}}
 
     {{#each arrows as |arrow|}}
-      {{dag-arrow plot=plot coordinates=arrow color=color gap=gap}}
+      {{dag-arrow plot=plot margin=margin point=arrow color=color gap=gap}}
     {{/each}}
+
+    {{#if isEditMode}}
+      {{dag-grid clicked=(action "toggleGridCell") plot=plot gap=gap repeatX=sizeX repeatY=sizeY}}
+    {{/if}}
 
   {{/plaid-plot}}
 {{/with}}
