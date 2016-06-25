@@ -18,6 +18,7 @@ export default Ember.Component.extend({
   arrowFade: 10,
   arrowSize: 4,
   edgeSize: 3,
+  hover: [0, 0],
 
   start: Ember.computed('seed', 'sizeX', 'sizeY', function() {
     let seed = this.get('seed');
@@ -74,6 +75,9 @@ export default Ember.Component.extend({
         let newObject = {coordinates: c, type: tool.type, direction: tool.direction};
         this.get('data').pushObject(newObject);
       }
+    },
+    showToolPreview(c) {
+      this.set('hover', c);
     }
   }
 

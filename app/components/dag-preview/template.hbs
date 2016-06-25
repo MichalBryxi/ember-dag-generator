@@ -1,0 +1,7 @@
+{{#if isEdge}}
+  {{dag-edge plot=plot margin=margin point=point color=color gap=gap}}
+{{else if isVertex}}
+  {{dag-vertex plot=plot margin=margin coordinates=coordinates color=color gap=gap}}
+{{else if isArrow}}
+  {{dag-arrow plot=plot margin=margin point=point color=color gap=gap}}
+{{/if}}
