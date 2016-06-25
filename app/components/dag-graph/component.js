@@ -19,6 +19,14 @@ export default Ember.Component.extend({
   arrowSize: 5,
   edgeSize: 5,
   hover: [0, 0],
+  urlData: [],
+
+  didReceiveAttrs(options) {
+    let urlData = options.newAttrs.urlData.value;
+    if(!Ember.isEmpty(urlData)) {
+      this.set('urlData', urlData);
+    }
+  },
 
   start: Ember.computed('seed', 'sizeX', 'sizeY', function() {
     let seed = this.get('seed');
@@ -29,9 +37,9 @@ export default Ember.Component.extend({
     ];
   }),
 
-  data: Ember.computed('start', 'sizeX', 'sizeY', function() {
+  generatedData: Ember.computed('start.[]', function() {
     // re-initialize random number generator
-    seedrandom(0,1,this.get('seed'));
+    seedrandom(0, 1, this.get('seed'));
 
     let data = generator.vertices(
       this.get('start'),
@@ -44,7 +52,18 @@ export default Ember.Component.extend({
       this.get('arrowFade'),
       this.get('arrowSize')
     );
+
     return data;
+  }),
+
+  data: Ember.computed('generatedData.[]', 'urlData.[]', function() {
+    let urlData = this.get('urlData');
+
+    if(Ember.isEmpty(urlData)) {
+      return this.get('generatedData');
+    } else {
+      return urlData;
+    }
   }),
 
   vertices: Ember.computed('data.[]', function() {
@@ -77,6 +96,9 @@ export default Ember.Component.extend({
         let newObject = {coordinates: c, type: tool.type, direction: tool.direction};
         this.get('data').pushObject(newObject);
       }
+
+      // If user changes graph, send a message about that
+      this.get('onDataChange')(this.get('data'));
     },
     showToolPreview(c) {
       this.set('hover', c);

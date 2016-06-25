@@ -37,7 +37,7 @@
 
       {{paper-input block=true label="Graph color" value=color onChange=(action (mut color)) icon="invert-colors"}}
 
-      {{paper-input block=true type="number" label="Seed" value=seed onChange=(action (mut seed)) icon="autorenew"}}
+      {{paper-input block=true type="number" label=seedLabel value=seed onChange=(action (mut seed)) disabled=hasNoUrlData icon="autorenew"}}
 
       <div layout>
         {{paper-input flex=50 type="number" label="width" value=width onChange=(action (mut width)) icon="border-vertical"}}
@@ -81,7 +81,7 @@
         {{/paper-toolbar}}
       {{/if}}
 
-      {{dag-graph selectedTool=selectedTool color=color isEditMode=isEditMode seed=seed sizeX=width sizeY=height gridScale=gridScale}}
+      {{dag-graph onDataChange=(action "dataUpdated") urlData=urlData selectedTool=selectedTool color=color isEditMode=isEditMode seed=seed sizeX=width sizeY=height gridScale=gridScale}}
     </div>
   {{/paper-card-content}}
 {{/paper-sidenav-container}}
