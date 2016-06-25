@@ -10,7 +10,7 @@ export function vertices(point, dice, edgeMaxSize, max, fade, lastDirection, arr
     [-1, 1]
   ];
 
-  directions.forEach(function(direction, index) {
+  directions.forEach(function(direction) {
     if(!isBackwards(lastDirection, direction)) { // Do not go backwards
       let isEdge = seedrandom(0, 100) < dice;
       let isArrow = seedrandom(1, 100) < arrowProbability;
