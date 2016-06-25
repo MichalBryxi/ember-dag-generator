@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  tagName: '',
+
   isSelected: Ember.computed('tool.direction', 'tool.type', 'selectedTool.direction', 'selectedTool.type', function() {
     let d1 = this.get('tool.direction');
     let d2 = this.get('selectedTool.direction');

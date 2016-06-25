@@ -7,7 +7,10 @@
       {{/paper-button}}
     {{/paper-sidenav-toggle}}
 
-    <h2>Ember DAG generator</h2>
+    <h2>
+      <span class="hide-xs">Ember DAG generator</span>
+      <span class="hide-gt-xs">DAG</span>
+    </h2>
 
     <span class="flex"></span>
 
@@ -69,7 +72,7 @@
       {{#if isEditMode}}
        {{#paper-toolbar accent=true as |toolbar|}}
           {{#toolbar.tools}}
-            <h2>
+            <h2 class="hide-xs">
               Edit tool:
             </h2>
             <span class="flex"></span>
