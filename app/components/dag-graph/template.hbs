@@ -4,6 +4,10 @@
     (linear-scale domain range nice=true)
     plotArea as |plot|}}
 
+    {{#if isEditMode}}
+      {{dag-grid plot=plot gap=gap repeatX=sizeX repeatY=sizeY}}
+    {{/if}}
+
     {{dag-start plot=plot coordinates=start color=color gap=gap}}
 
     {{#each edges as |edge|}}
@@ -19,7 +23,8 @@
     {{/each}}
 
     {{#if isEditMode}}
-      {{dag-grid clicked=(action "toggleGridCell") plot=plot gap=gap repeatX=sizeX repeatY=sizeY}}
+      {{dag-preview plot=plot tool=selectedTool coordinates=hover gap=gap margin=margin}}
+      {{dag-overlay entered=(action "showToolPreview") clicked=(action "toggleGridCell") plot=plot gap=gap repeatX=sizeX repeatY=sizeY}}
     {{/if}}
 
   {{/plaid-plot}}

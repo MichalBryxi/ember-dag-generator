@@ -1,0 +1,5 @@
+{{#each (range 0 repeatX) as |x|}}
+  {{#each (range 0 repeatY) as |y|}}
+    {{dag-rectangle mouseEnter=(action entered (array x y)) click=(action clicked (array x y)) plot=plot gap=gap coordinates=(array x y) color=color}}
+  {{/each}}
+{{/each}}

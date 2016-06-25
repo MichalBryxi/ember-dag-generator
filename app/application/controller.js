@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   // queryParams: ['color', 'seed', 'isEditMode'],
 
-  selectedTool: { type: 'delete', direction: [] },
+  selectedTool: { type: 'arrow', direction: [1, 1] },
 
   initialReset: Ember.on('init', function() {
     this.send('reset');
