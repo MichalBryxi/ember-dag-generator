@@ -16,8 +16,8 @@ export default Ember.Component.extend({
   verticesFade: 20,
   arrowProbability: 50,
   arrowFade: 10,
-  arrowSize: 4,
-  edgeSize: 3,
+  arrowSize: 5,
+  edgeSize: 5,
   hover: [0, 0],
 
   start: Ember.computed('seed', 'sizeX', 'sizeY', function() {
@@ -30,9 +30,11 @@ export default Ember.Component.extend({
   }),
 
   data: Ember.computed('start', 'sizeX', 'sizeY', function() {
+    // re-initialize random number generator
+    seedrandom(0,1,this.get('seed'));
+
     let data = generator.vertices(
       this.get('start'),
-      this.get('seed'),
       this.get('verticesProbability'),
       this.get('edgeSize'),
       [this.get('sizeX'), this.get('sizeY')],

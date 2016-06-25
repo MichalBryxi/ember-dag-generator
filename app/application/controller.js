@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   // queryParams: ['color', 'seed', 'isEditMode'],
 
+  seed: 246,
+
   selectedTool: { type: 'arrow', direction: [1, 1] },
 
   initialReset: Ember.on('init', function() {
@@ -14,10 +16,12 @@ export default Ember.Controller.extend({
       window.print();
     },
     reset() {
+      let seed = this.incrementProperty('seed');
+
       this.setProperties({
         color: '#ec933e',
         isEditMode: true,
-        seed: 123456789,
+        seed: seed,
         width: 8,
         height: 8,
         gridScale: 45
