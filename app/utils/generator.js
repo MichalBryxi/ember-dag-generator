@@ -1,6 +1,6 @@
 import { seedrandom } from 'ember-dag-generator/utils/seedrandom';
 
-export function vertices(point, seed, dice, edgeMaxSize, max, fade, lastDirection, arrowProbability, arrowFade, arrowMaxSize) {
+export function vertices(point, dice, edgeMaxSize, max, fade, lastDirection, arrowProbability, arrowFade, arrowMaxSize) {
   let newPoints = [];
 
   let directions = [
@@ -12,17 +12,17 @@ export function vertices(point, seed, dice, edgeMaxSize, max, fade, lastDirectio
 
   directions.forEach(function(direction, index) {
     if(!isBackwards(lastDirection, direction)) { // Do not go backwards
-      let isEdge = seedrandom(0, 100, seed + index + 1) < dice;
-      let isArrow = seedrandom(1, 100, seed + index + 10) < arrowProbability;
+      let isEdge = seedrandom(0, 100) < dice;
+      let isArrow = seedrandom(1, 100) < arrowProbability;
       let distance;
       let finalType;
 
       if(isEdge) { // First make sure to do edges
-        distance = seedrandom(0, edgeMaxSize, seed + index);
+        distance = seedrandom(0, edgeMaxSize);
         isArrow = false;
         finalType = 'vertex';
       } else if(isArrow) {
-        distance = seedrandom(0, arrowMaxSize, seed + index);
+        distance = seedrandom(0, arrowMaxSize);
         finalType = 'arrow';
       }
 
@@ -30,7 +30,7 @@ export function vertices(point, seed, dice, edgeMaxSize, max, fade, lastDirectio
         let finalPoint = movePoint(point, direction, distance + 1);
         if(isInside(finalPoint, max)) {
           if(isEdge) {
-            let generated = vertices(finalPoint, seed + 1234, dice - fade, distance, max, fade, direction, arrowProbability - arrowFade, arrowFade, arrowMaxSize);
+            let generated = vertices(finalPoint, dice - fade, distance, max, fade, direction, arrowProbability - arrowFade, arrowFade, arrowMaxSize);
             newPoints.pushObjects(generated);
           }
 
