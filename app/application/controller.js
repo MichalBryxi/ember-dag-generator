@@ -29,8 +29,12 @@ export default Ember.Controller.extend({
 
     Ember.run.scheduleOnce('afterRender', this, function() {
       let data = this.get('data');
+      let color = this.get('color');
+      let gridScale = this.get('gridScale');
+      let width = this.get('width');
+      let height = this.get('height');
 
-      if(Ember.isEmpty(data)) {
+      if(Ember.isEmpty(data) && Ember.isEmpty(color) && Ember.isEmpty(gridScale) && Ember.isEmpty(width) && Ember.isEmpty(height)) {
         this.send('reset');
       } else {
         let dataDecoded = url.decode(this.get('data'));
