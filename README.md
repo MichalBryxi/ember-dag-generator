@@ -1,3 +1,5 @@
+# Project moved to: https://gitlab.com/michal.bryxi/ember-dag-generator
+
 # Ember-dag-generator
 
 * [Demo application](https://ember-dag-generator.herokuapp.com/)
